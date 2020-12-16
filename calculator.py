@@ -15,6 +15,7 @@ logo = """
 |_____________________|
 """
 
+# Calculator:
 def add(n1, n2):
     return n1 + n2
 
@@ -25,47 +26,42 @@ def multiply(n1, n2):
     return n1 * n2
 
 def divide(n1, n2):
-    return n1 / n2
+    return round(n1 / n2, 2)
 
 operations = {
     "+": add,
     "-": subtract,
     "*": multiply,
-    "/": divide
+    "/": divide,
 }
 
 # function = operations["*"]
-# function(2, 3) # in this case, the function acts as the multiply function 
-
+# function(2, 3)
 def calculator():
-    print(f"\n{logo}")
+    print(logo)
 
-    num1 = float(input("\nenter num1: "))
+    num1 = float(input("\nWhat's the first number? "))
+    print()
+
     for symbol in operations:
         print(symbol)
 
-
-    to_continue = True
-    while to_continue:
-        operation_symbol = input("Pick an operation: ")
-        num2 = float(input("enter next number: "))
-
+    should_contiue = True
+    while should_contiue:
+        operation_symbol = input("\nPick an operation: ")
+        num2 = float(input("\nWhat's the next number? "))
         calculation_function = operations[operation_symbol]
         answer = calculation_function(num1, num2)
-        print(f"{num1} {operation_symbol} {num2} = {answer}")
+        print(f"\n{num1} {operation_symbol} {num2} = {answer}\n")
 
-        user_choice = input(f"\ntype 'YES' to continue with {answer} \nor, type 'NEW' to start new calculation \nor, type 'NO' to exit: \n").lower()
-        if user_choice == 'no':
-            to_continue = False
-            print("goodbye!")
-            break
-
-        elif user_choice == 'yes':
+        choice = input(f"type 'yes' to continue calculationg with {answer}\nor type 'new' to start a new calculation\nor type 'no' to exit: \n")
+        if choice == "yes":
             num1 = answer
-            # then the loop goes back to the start of the while loop
-
-        elif user_choice == 'new':
+        elif choice == 'new':
+            should_contiue = False
             calculator()
-            break
+        elif choice == 'no':
+            should_contiue = False
+            print("goodbye!")
 
 calculator()
